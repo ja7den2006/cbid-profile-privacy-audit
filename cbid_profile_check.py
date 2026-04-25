@@ -1,4 +1,5 @@
 import json
+import uuid
 import re
 import sys
 from typing import Any, Dict
@@ -16,8 +17,6 @@ def normalize_username(username: str) -> str:
     if username.endswith(".cb.id"):
         username = username[:-6]
 
-    # Conservative username validation for a safe demo.
-    # This prevents accidental full URLs, emails, shell content, or file paths.
     if not re.fullmatch(r"[a-z0-9][a-z0-9-]{0,62}", username):
         raise ValueError(
             "Invalid username format. Use only the cb.id label, for example: alice"
@@ -29,9 +28,38 @@ def normalize_username(username: str) -> str:
 def fetch_public_profile(username: str) -> Dict[str, Any]:
     user_domain = f"{username}.cb.id"
 
+    
     headers = {
+        "Host": "api.wallet.coinbase.com",
+        "Sec-Ch-Ua-Platform": '"Windows"',
+        "X-Cb-Session-Uuid": str(uuid.uuid4()),
+        "Sec-Ch-Ua": '"Not)A;Brand";v="8", "Chromium";v="138"',
+        "X-Cb-Platform": "extension",
+        "Sec-Ch-Ua-Mobile": "?0",
+        "X-Appsflyer-Id": "",
+        "X-Cb-Ujs": "",
+        "X-Cb-Version-Name": "3.123.0",
         "Accept": "application/json",
-        "User-Agent": "cbid-profile-privacy-audit/1.0",
+        "Content-Type": "application/json",
+        "X-Cb-Is-Logged-In": "true",
+        "X-Platform-Name": "extension",
+        "X-Cb-Device-Id": str(uuid.uuid4()),
+        "X-Cb-Project-Name": "wallet_extension",
+        "X-Release-Stage": "production",
+        "X-App-Version": "3.123.0",
+        "X-Cb-Pagekey": "profile",
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/138.0.0.0 Safari/537.36"
+        ),
+        "Sec-Fetch-Site": "none",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Storage-Access": "active",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Priority": "u=1, i",
     }
 
     response = requests.get(
