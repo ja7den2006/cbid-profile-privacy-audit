@@ -107,7 +107,8 @@ This issue is most relevant when all of the following are true:
 
 ## What This Project Demonstrates
 
-The included script performs a single lookup for one `cb.id` username and prints non-empty `coinAddresses` values.
+The included script performs a single lookup for one `cb.id` username and prints non-empty `coinAddresses` values. 
+Cloudflare Is not really that secure either, a simple tls client can bypass it with ease. 
 
 It is intended for:
 
