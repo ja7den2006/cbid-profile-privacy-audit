@@ -6,6 +6,17 @@ from typing import Any, Dict
 
 import requests
 
+"""
+If you recieve 403 forbidden its a simple CF Block just use import tls_client, and use it as requests.session()
+
+session = tls_client.Session(
+    client_identifier="chrome112",
+    random_tls_extension_order=True
+)
+
+-> https://github.com/FlorianREGAZ/Python-Tls-Client
+"""
+
 
 USERNAME = "alice" 
 API      = "https://api.wallet.coinbase.com"
